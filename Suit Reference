@@ -1,0 +1,132 @@
+import 'package:flutter/material.dart';
+
+void main() => runApp(SuitReferenceApp());
+
+class SuitReferenceApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Suit Reference',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: HomeScreen(),
+    );
+  }
+}
+
+class SuitStyle {
+  final String name;
+  final String description;
+  final String imageUrl;
+
+  SuitStyle({required this.name, required this.description, required this.imageUrl});
+}
+
+class HomeScreen extends StatelessWidget {
+  final List<SuitStyle> styles = [
+    SuitStyle(
+      name: 'Classic',
+      description: 'Describes traditional suits.',
+      imageUrl: 'https://example.com/classic_suit.jpg', 
+    ),
+    SuitStyle(
+      name: 'Casual',
+      description: 'Laid-back yet stylish.',
+      imageUrl: 'https://example.com/casual_suit.jpg', 
+    ),
+    SuitStyle(
+      name: 'Formal',
+      description: 'Perfect for formal occasions.',
+      imageUrl: 'https://example.com/formal_suit.jpg',
+    ),
+    SuitStyle(
+      name: 'Business Casual',
+      description: 'Professional yet relaxed.',
+      imageUrl: 'https://example.com/business_casual_suit.jpg', 
+    ),
+    SuitStyle(
+      name: 'Summer Suit',
+      description: 'Lightweight and breathable.',
+      imageUrl: 'https://example.com/summer_suit.jpg', 
+    ),
+    SuitStyle(
+      name: 'Tuxedo',
+      description: 'For black tie events.',
+      imageUrl: 'https://example.com/tuxedo.jpg', 
+    ),
+    SuitStyle(
+      name: 'Three-Piece Suit',
+      description: 'Includes waistcoat for added elegance.',
+      imageUrl: 'https://example.com/three_piece_suit.jpg', 
+    ),
+    SuitStyle(
+      name: 'Double-Breasted Suit',
+      description: 'Classic and sophisticated.',
+      imageUrl: 'https://example.com/double_breasted_suit.jpg', 
+    ),
+    SuitStyle(
+      name: 'Linen Suit',
+      description: 'Perfect for hot weather.',
+      imageUrl: 'https://example.com/linen_suit.jpg', 
+    ),
+    SuitStyle(
+      name: 'Fitted Suit',
+      description: 'Tailored for a sharp look.',
+      imageUrl: 'https://example.com/fitted_suit.jpg', 
+    ),
+    SuitStyle(
+      name: 'Vintage Suit',
+      description: 'Stylish options from past eras.',
+      imageUrl: 'https://example.com/vintage_suit.jpg',
+    ),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('Suit Reference')),
+      body: ListView.builder(
+        itemCount: styles.length,
+        itemBuilder: (context, index) {
+          return Card(
+            child: ListTile(
+              leading: Image.network(styles[index].imageUrl),
+              title: Text(styles[index].name),
+              subtitle: Text(styles[index].description),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => DetailsScreen(style: styles[index])),
+                );
+              },
+            ),
+          );
+        },
+      ),
+    );
+  }
+}
+
+class DetailsScreen extends StatelessWidget {
+  final SuitStyle style;
+
+  DetailsScreen({required this.style});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text(style.name)),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            Image.network(style.imageUrl),
+            SizedBox(height: 16.0),
+            Text(style.description),
+          ],
+        ),
+      ),
+    );
+  }
+}
